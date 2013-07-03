@@ -1,0 +1,8 @@
+﻿<section>
+    <h2 data-bind="html:displayName"></h2>
+    <blockquote data-bind="html:description"></blockquote>
+    <h3>Areas</h3>
+    <ul data-bind="foreach: areas">
+        <li><a data-bind="attr: {'href': '#area/'+id}, text: name"></a></li>
+    </ul>
+</section>
