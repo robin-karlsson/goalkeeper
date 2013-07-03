@@ -1,15 +1,13 @@
-﻿define(function() {
-    var areas = function () {
-        this.displayName = 'Areas';
-        this.description = 'Organize your organizational goals and keep daily track of the progress.';
-        this.areas = [
-            {id: '123',name: 'asdf'}
-        ];
+﻿define(['durandal/http','knockout'], function (http,ko) {
+    var areas = {
+        displayName: 'Areas',
+        description: 'Organize your organizational goals and keep daily track of the progress.',
+        areas: ko.observableArray()
     };
 
-    areas.prototype.viewAttached = function (view) {
-        //you can get the view after it's bound and connected to it's parent dom node if you want
-    };
+    http.get('api/areas').success(function(data) {
+        areas.areas(data);
+    });
 
     return areas;
 });

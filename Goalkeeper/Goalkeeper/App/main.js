@@ -1,6 +1,7 @@
 ﻿requirejs.config({
     paths: {
-        'text': 'durandal/amd/text'
+        'text': 'durandal/amd/text',
+        'knockout': '../Scripts/knockout-2.2.1'
     }
 });
 
@@ -20,6 +21,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plu
             //configure routing
             router.useConvention();
             router.mapNav('areas');
+            router.mapAuto();
 
             app.adaptToDevice();
 

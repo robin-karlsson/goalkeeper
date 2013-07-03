@@ -168,6 +168,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\SampleDataController.cs" />
     <Compile Include="Controllers\DurandalController.cs" />
     <Compile Include="Controllers\PerformerController.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -206,8 +207,10 @@
     <Content Include="App\durandal\widget.js" />
     <Content Include="App\main-built.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\viewmodels\sampledata.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\areas.js" />
+    <Content Include="App\views\sampledata.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\areas.html" />
     <Content Include="Content\app.css" />
