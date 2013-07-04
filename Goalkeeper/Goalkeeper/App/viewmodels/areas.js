@@ -1,4 +1,4 @@
-﻿define(['durandal/http','knockout'], function (http,ko) {
+﻿define(['durandal/http'], function (http) {
     var areas = function () {
         var self = this;
         
