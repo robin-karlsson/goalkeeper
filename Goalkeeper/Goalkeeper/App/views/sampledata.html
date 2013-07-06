@@ -1,5 +1,7 @@
 ﻿<section>
     <h2 data-bind="html:displayName"></h2>
     <blockquote data-bind="html:description"></blockquote>
+    <div class="alert-info" data-bind="visible: showMessage, text: message"></div>
     <a href="#" class="btn btn-large btn-primary" data-bind="click: createSampleData, disable: sampleDataCreated">Create Sample Data</a>
+    <a href="#" class="btn btn-large btn-danger" data-bind="click: clearAllData">Delete all Data</a>
 </section>

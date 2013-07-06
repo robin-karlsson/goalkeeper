@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using Goalkeeper.App_Start;
 using Raven.Client;
 using Raven.Client.Embedded;
 
@@ -24,6 +25,10 @@ namespace Goalkeeper.Controllers
                     };
 
                 docStore.Initialize();
+
+                var index = new AllDocumentsById();
+                index.Execute(docStore);
+
                 return docStore;
             });
 

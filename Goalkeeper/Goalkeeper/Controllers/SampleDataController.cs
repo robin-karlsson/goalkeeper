@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Goalkeeper.Models;
-using Raven.Abstractions.Commands;
-using Raven.Client;
+using Raven.Abstractions.Data;
 
 namespace Goalkeeper.Controllers
 {
@@ -16,7 +15,15 @@ namespace Goalkeeper.Controllers
             var area = new Area {Name = value};
             await Session.StoreAsync(area);
 
-            var goal = new Goal {AreaId = area.Id, Name = string.Format("Make {0} significantly better!", value)};
+            var period = new DateRange
+                {
+                    Name = "2013",
+                    StartDate = new DateTime(2013, 1, 1),
+                    EndDate = new DateTime(2013, 12, 31)
+                };
+            await Session.StoreAsync(period);
+
+            var goal = new Goal {AreaId = area.Id, DateRangeId = period.Id, Name = string.Format("Make {0} significantly better!", value)};
             await Session.StoreAsync(goal);
 
             var performer = new Performer {Name = string.Format("{0} Worker", value)};
@@ -50,6 +57,14 @@ namespace Goalkeeper.Controllers
             await Session.StoreAsync(completedActivity);
 
             return new HttpResponseMessage(HttpStatusCode.Created);
+        }
+
+        public async void Delete()
+        {
+            await
+                Session.Advanced.DocumentStore.AsyncDatabaseCommands.DeleteByIndexAsync("AllDocumentsById",
+                                                                                        new IndexQuery(),
+                                                                                        allowStale: false);
         }
     }
 }

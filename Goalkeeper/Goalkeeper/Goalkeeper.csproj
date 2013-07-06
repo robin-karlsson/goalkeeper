@@ -160,6 +160,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AllDocumentsById.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\DurandalBundleConfig.cs" />
     <Compile Include="App_Start\DurandalConfig.cs" />
@@ -208,10 +209,12 @@
     <Content Include="App\main-built.js" />
     <Content Include="App\main.js" />
     <Content Include="App\viewmodels\area.js" />
+    <Content Include="App\viewmodels\goals.js" />
     <Content Include="App\viewmodels\sampledata.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\areas.js" />
     <Content Include="App\views\area.html" />
+    <Content Include="App\views\goals.html" />
     <Content Include="App\views\sampledata.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\areas.html" />

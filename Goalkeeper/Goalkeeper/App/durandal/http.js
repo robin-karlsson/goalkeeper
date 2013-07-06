@@ -31,6 +31,15 @@
                 contentType: 'application/json',
                 dataType: 'json'
             });
+        },
+        delete: function (url, data) {
+            return $.ajax({
+                url: url,
+                data: ko.toJSON(data),
+                type: 'DELETE',
+                contentType: 'application/json',
+                dataType: 'json'
+            });
         }
     };
 });
