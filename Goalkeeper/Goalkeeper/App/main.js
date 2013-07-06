@@ -21,6 +21,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plu
             //configure routing
             router.useConvention();
             router.mapNav('areas');
+            router.mapNav('goals');
             router.mapAuto();
 
             app.adaptToDevice();
