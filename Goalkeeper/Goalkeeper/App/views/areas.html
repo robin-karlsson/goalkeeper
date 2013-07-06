@@ -3,6 +3,6 @@
     <blockquote data-bind="html:description"></blockquote>
     <h3>Areas</h3>
     <ul data-bind="foreach: areas">
-        <li><a data-bind="attr: {'href': '#/area/'+Id}, text: Name"></a></li>
+        <li><a data-bind="attr: {'href': '#/area/'+Id.replace('/','-')}, text: Name"></a></li>
     </ul>
 </section>

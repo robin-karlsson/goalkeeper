@@ -207,9 +207,11 @@
     <Content Include="App\durandal\widget.js" />
     <Content Include="App\main-built.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\viewmodels\area.js" />
     <Content Include="App\viewmodels\sampledata.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\viewmodels\areas.js" />
+    <Content Include="App\views\area.html" />
     <Content Include="App\views\sampledata.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\areas.html" />

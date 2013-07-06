@@ -6,13 +6,11 @@
         this.description = 'Organize your organizational goals and keep daily track of the progress.';
         this.areas = ko.observableArray();
 
-        this.loadAreas = function() {
-            http.get('api/areas').success(function (data) {
+        this.activate = function() {
+            return http.get('api/areas').success(function (data) {
                 self.areas(data);
             });
         };
-
-        this.loadAreas();
     };
 
     return areas;

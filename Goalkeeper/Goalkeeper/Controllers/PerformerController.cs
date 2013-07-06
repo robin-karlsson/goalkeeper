@@ -11,8 +11,6 @@ namespace Goalkeeper.Controllers
 {
     public class PerformersController : RavenDbController
     {
-        private const string IdFormat = "Performers/{0}";
-
         public async Task<IEnumerable<Performer>> Get()
         {
             return await Session.Query<Performer>()
@@ -21,7 +19,7 @@ namespace Goalkeeper.Controllers
 
         public async Task<Performer> Get(string id)
         {
-            return await Session.LoadAsync<Performer>(string.Format(IdFormat, id));
+            return await Session.LoadAsync<Performer>(id.Replace('-', '/'));
         }
 
         public async Task<HttpResponseMessage> Post([FromBody]Performer value)
@@ -33,14 +31,14 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]Performer value)
         {
-            await Session.StoreAsync(value, id);
+            await Session.StoreAsync(value, id.Replace('-', '/'));
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         public void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = string.Format(IdFormat, id) });
+            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
         }
     }
 }

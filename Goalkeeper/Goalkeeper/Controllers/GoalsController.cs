@@ -12,14 +12,16 @@ namespace Goalkeeper.Controllers
 {
     public class GoalsController : RavenDbController
     {
-        private const string IdFormat = "Goals/{0}";
-
-        [HttpGet("areas/{areaId}/goals")]
-        public async Task<IEnumerable<Goal>> GetGoalsByArea(string areaId)
+        [HttpGet("api/areas/{areaId}/goals")]
+        public async Task<object> GetGoalsByArea(string areaId)
         {
-            return await Session.Query<Goal>()
+            areaId = areaId.Replace('-', '/');
+            var goals = await Session.Query<Goal>()
                 .Where(x => x.AreaId == areaId)
                 .ToListAsync();
+            var area = await Session.LoadAsync<Area>(areaId);
+
+            return new {area, goals};
         }
 
         public async Task<IEnumerable<Goal>> Get()
@@ -29,7 +31,7 @@ namespace Goalkeeper.Controllers
 
         public async Task<Goal> Get(string id)
         {
-            return await Session.LoadAsync<Goal>(string.Format(IdFormat, id));
+            return await Session.LoadAsync<Goal>(id.Replace('-', '/'));
         }
 
         public async Task<HttpResponseMessage> Post([FromBody]Goal value)
@@ -41,14 +43,14 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]Goal value)
         {
-            await Session.StoreAsync(value, id);
+            await Session.StoreAsync(value, id.Replace('-', '/'));
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         public void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = string.Format(IdFormat, id) });
+            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
         }
     }
 }

@@ -12,21 +12,19 @@ namespace Goalkeeper.Controllers
 {
     public class ActivitiesController : RavenDbController
     {
-        private const string IdFormat = "Activities/{0}";
-
-        [HttpGet("goals/{goalId}/activities")]
+        [HttpGet("api/goals/{goalId}/activities")]
         public async Task<IEnumerable<Activity>> GetByGoalId(string goalId)
         {
             return await Session.Query<Activity>()
-                .Where(x => x.GoalId == goalId)
+                .Where(x => x.GoalId == goalId.Replace('-','/'))
                 .ToListAsync();
         }
 
-        [HttpGet("performers/{performerId}/open-activities")]
+        [HttpGet("api/performers/{performerId}/open-activities")]
         public async Task<IEnumerable<Activity>> GetOpenByPerformer(string performerId)
         {
             return await Session.Query<Activity>()
-                                .Where(x => x.PerformerId == performerId &&
+                                .Where(x => x.PerformerId == performerId.Replace('-', '/') &&
                                             x.ActivityState == ActivityState.InProgress)
                                 .ToListAsync();
         }
@@ -39,7 +37,7 @@ namespace Goalkeeper.Controllers
 
         public async Task<Activity> Get(string id)
         {
-            return await Session.LoadAsync<Activity>(string.Format(IdFormat, id));
+            return await Session.LoadAsync<Activity>(id.Replace('-', '/'));
         }
 
         public async Task<HttpResponseMessage> Post([FromBody]Activity value)
@@ -51,14 +49,14 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]Activity value)
         {
-            await Session.StoreAsync(value, id);
+            await Session.StoreAsync(value, id.Replace('-', '/'));
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         public void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = string.Format(IdFormat, id) });
+            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
         }
     }
 }

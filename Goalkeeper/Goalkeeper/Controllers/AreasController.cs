@@ -11,8 +11,6 @@ namespace Goalkeeper.Controllers
 {
     public class AreasController : RavenDbController
     {
-        private const string IdFormat = "Areas/{0}";
-
         public async Task<IEnumerable<Area>> Get()
         {
             return await Session.Query<Area>()
@@ -21,7 +19,7 @@ namespace Goalkeeper.Controllers
 
         public async Task<Area> Get(string id)
         {
-            return await Session.LoadAsync<Area>(string.Format(IdFormat, id));
+            return await Session.LoadAsync<Area>(id.Replace('-', '/'));
         }
 
         public async Task<HttpResponseMessage> Post([FromBody]Area value)
@@ -33,14 +31,14 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]Area value)
         {
-            await Session.StoreAsync(value, id);
+            await Session.StoreAsync(value, id.Replace('-', '/'));
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
         public void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = string.Format(IdFormat, id) });
+            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
         }
     }
 }
