@@ -1,8 +1,25 @@
 ﻿<section>
     <h2 data-bind="html:displayName"></h2>
     <blockquote data-bind="html:description"></blockquote>
-    <h3>Goals</h3>
-    <ul data-bind="foreach: activities">
-        <li><a data-bind="attr: {'href': '#/activity/'+Id.replace('/','-')}, text: Title"></a></li>
-    </ul>
+    <h3>Activities to reach the goal</h3>
+    <div>
+        <dl>
+            <dt><b class="">Completed activities</b> <span class="badge badge-success" data-bind="text: completedActivities().length>0 ? completedActivities().length : ''"></span></dt>
+            <!-- ko foreach: completedActivities -->
+            <dd><a data-bind="attr: {'href': '#/activity/'+Id.replace('/','-')}, text: Title"></a></dd>
+            <!-- /ko -->
+        </dl>
+        <dl>
+            <dt><b class="">Moving activities</b> <span class="badge badge-warning" data-bind="text: inProgressActivities().length>0 ? inProgressActivities().length : ''"></span></dt>
+            <!-- ko foreach: inProgressActivities -->
+            <dd><a data-bind="attr: {'href': '#/activity/'+Id.replace('/','-')}, text: Title"></a></dd>
+            <!-- /ko -->
+        </dl>
+        <dl>
+            <dt><b class="">Waiting activities</b> <span class="badge badge-info" data-bind="text: notStartedActivities().length>0 ? notStartedActivities().length : ''"></span></dt>
+            <!-- ko foreach: notStartedActivities -->
+            <dd><a data-bind="attr: {'href': '#/activity/'+Id.replace('/','-')}, text: Title"></a></dd>
+            <!-- /ko -->
+        </dl>
+    </div>
 </section>

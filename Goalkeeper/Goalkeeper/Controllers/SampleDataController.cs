@@ -49,7 +49,7 @@ namespace Goalkeeper.Controllers
 
             var completedActivity = new Activity
             {
-                ActivityState = ActivityState.NotStarted,
+                ActivityState = ActivityState.Completed,
                 GoalId = goal.Id,
                 PerformerId = performer.Id,
                 Title = string.Format("Document {0} process", value)
