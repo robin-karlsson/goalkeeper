@@ -1,0 +1,8 @@
+﻿<section>
+    <h2 data-bind="html:displayName"></h2>
+    <blockquote data-bind="html:description"></blockquote>
+    <h3>Goals</h3>
+    <ul data-bind="foreach: activities">
+        <li><a data-bind="attr: {'href': '#/activity/'+Id.replace('/','-')}, text: Title"></a></li>
+    </ul>
+</section>

@@ -3,10 +3,11 @@
     return {
         router: router,
         activate: function () {
-            router.daterange = { Name: '', Id: undefined };
             return http.get('api/dateranges/current-latest').success(function (data) {
                 if (data != null) {
                     router.daterange = data;
+                } else {
+                    router.daterange = { Name: '', Id: undefined };
                 }
                 router.activate('areas');
             });

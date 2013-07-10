@@ -13,11 +13,16 @@ namespace Goalkeeper.Controllers
     public class ActivitiesController : RavenDbController
     {
         [HttpGet("api/goals/{goalId}/activities")]
-        public async Task<IEnumerable<Activity>> GetByGoalId(string goalId)
+        public async Task<object> GetByGoalId(string goalId)
         {
-            return await Session.Query<Activity>()
-                .Where(x => x.GoalId == goalId.Replace('-','/'))
+            goalId = goalId.Replace('-', '/');
+            var goal = await Session.LoadAsync<Goal>(goalId);
+
+            var activities = await Session.Query<Activity>()
+                .Where(x => x.GoalId == goalId)
                 .ToListAsync();
+
+            return new {goal, activities};
         }
 
         [HttpGet("api/performers/{performerId}/open-activities")]
