@@ -1,4 +1,4 @@
-﻿define(['durandal/http'], function (http) {
+﻿define(['durandal/plugins/router','durandal/http'], function (router, http) {
     var areas = function () {
         var self = this;
         
@@ -7,7 +7,7 @@
         this.goals = ko.observableArray();
         
         this.activate = function(areaId) {
-            return http.get('api/areas/' + areaId.splat + '/goals').success(function (data) {
+            return http.get('api/areas/' + areaId.splat + '/goals/' + router.daterange.Id.replace('/','-')).success(function (data) {
                 self.goals(data.goals);
                 self.displayName(data.area.Name);
             });

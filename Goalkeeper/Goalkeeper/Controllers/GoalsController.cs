@@ -24,6 +24,20 @@ namespace Goalkeeper.Controllers
             return new {area, goals};
         }
 
+        [HttpGet("api/areas/{areaId}/goals/{dateRangeId}")]
+        public async Task<object> GetGoalsByArea(string areaId, string dateRangeId)
+        {
+            areaId = areaId.Replace('-', '/');
+            dateRangeId = dateRangeId.Replace('-', '/');
+            var goals = await Session.Query<Goal>()
+                                     .Where(x => x.AreaId == areaId &&
+                                                 x.DateRangeId == dateRangeId)
+                                     .ToListAsync();
+            var area = await Session.LoadAsync<Area>(areaId);
+
+            return new { area, goals };
+        }
+
         public async Task<IEnumerable<Goal>> Get()
         {
             return await Session.Query<Goal>().ToListAsync();

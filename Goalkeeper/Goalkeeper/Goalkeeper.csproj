@@ -169,6 +169,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\DateRangesController.cs" />
     <Compile Include="Controllers\SampleDataController.cs" />
     <Compile Include="Controllers\DurandalController.cs" />
     <Compile Include="Controllers\PerformerController.cs" />
