@@ -7,7 +7,7 @@
                 if (data != null) {
                     router.daterange = data;
                 } else {
-                    router.daterange = { Name: '', Id: undefined };
+                    router.daterange = { Name: 'No date range found', Id: undefined };
                 }
                 router.activate('areas');
             });
