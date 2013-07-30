@@ -8,6 +8,7 @@
                 { route: 'goals', title:'Goals', moduleId: 'viewmodels/goals', nav: true },
                 { route: 'area/*areaId', moduleId: 'viewmodels/area', nav: false },
                 { route: 'areas', moduleId: 'viewmodels/areas', nav: false },
+                { route: 'activity/*activityId', moduleId: 'viewmodels/activity', nav: false },
                 { route: 'sampledata', moduleId: 'viewmodels/sampledata', nav: false }
             ]).buildNavigationModel();
 
