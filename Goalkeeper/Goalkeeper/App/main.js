@@ -1,32 +1,34 @@
 ﻿requirejs.config({
     paths: {
-        'text': 'durandal/amd/text',
-        'knockout': '../Scripts/knockout-2.2.1'
+        'text': '../Scripts/text',
+        'durandal': '../Scripts/durandal',
+        'plugins': '../Scripts/durandal/plugins',
+        'transitions': '../Scripts/durandal/transitions'
     }
 });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plugins/router'],
-    function(app, viewLocator, system, router) {
+define('jquery', [], function() { return jQuery; });
+define('knockout', [], function () { return ko; });
 
-        //>>excludeStart("build", true);
-        system.debug(true);
-        //>>excludeEnd("build");
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
+    //>>excludeStart("build", true);
+    system.debug(true);
+    //>>excludeEnd("build");
 
-        app.title = 'Goalkeeper';
-        app.start().then(function() {
-            //Replace 'viewmodels' in the moduleId with 'views' to locate the view.
-            //Look for partial views in a 'views' folder in the root.
-            viewLocator.useConvention();
+    app.title = 'Goalkeeper';
 
-            //configure routing
-            router.useConvention();
-            router.mapNav('areas');
-            router.mapNav('goals');
-            router.mapAuto();
-
-            app.adaptToDevice();
-
-            //Show the app by setting the root view model for our application with a transition.
-            app.setRoot('viewmodels/shell', 'entrance');
-        });
+    app.configurePlugins({
+        router: true,
+        dialog: true,
+        widget: true
     });
+
+    app.start().then(function() {
+        //Replace 'viewmodels' in the moduleId with 'views' to locate the view.
+        //Look for partial views in a 'views' folder in the root.
+        viewLocator.useConvention();
+
+        //Show the app by setting the root view model for our application with a transition.
+        app.setRoot('viewmodels/shell', 'entrance');
+    });
+});

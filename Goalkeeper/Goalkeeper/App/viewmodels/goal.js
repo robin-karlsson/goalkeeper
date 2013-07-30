@@ -1,4 +1,4 @@
-﻿define(['durandal/plugins/router','durandal/http'], function (router, http) {
+﻿define(['plugins/router', 'plugins/http'], function (router, http) {
     var areas = function () {
         var self = this;
         
@@ -30,7 +30,7 @@
         });
 
         this.activate = function(goalId) {
-            return http.get('api/goals/' + goalId.splat + '/activities').success(function (data) {
+            return http.get('api/goals/' + goalId + '/activities').success(function (data) {
                 self.activities(data.activities);
                 self.displayName(data.goal.Name);
             });

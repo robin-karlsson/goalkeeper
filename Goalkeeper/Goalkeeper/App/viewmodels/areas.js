@@ -1,4 +1,4 @@
-﻿define(['durandal/http'], function (http) {
+﻿define(['plugins/http', 'durandal/system', 'knockout'], function (http, system, ko) {
     var areas = function () {
         var self = this;
         
@@ -13,5 +13,8 @@
         };
     };
 
-    return areas;
+    var vm = new areas();
+    vm.activate();
+
+    return vm;
 });

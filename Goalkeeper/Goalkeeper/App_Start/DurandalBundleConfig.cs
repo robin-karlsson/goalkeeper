@@ -7,22 +7,21 @@ namespace Goalkeeper {
       bundles.IgnoreList.Clear();
       AddDefaultIgnorePatterns(bundles.IgnoreList);
 
-      bundles.Add(
-        new ScriptBundle("~/scripts/vendor")
-          .Include("~/Scripts/jquery-{version}.js")
-          .Include("~/Scripts/knockout-{version}.js")
-          .Include("~/Scripts/sammy-{version}.js")
-          .Include("~/Scripts/bootstrap.min.js")
-        );
+	  bundles.Add(
+		new ScriptBundle("~/Scripts/vendor.js")
+			.Include("~/Scripts/jquery-{version}.js")
+			.Include("~/Scripts/bootstrap.js")
+			.Include("~/Scripts/knockout-{version}.js")
+		);
 
       bundles.Add(
         new StyleBundle("~/Content/css")
           .Include("~/Content/ie10mobile.css")
-          .Include("~/Content/bootstrap.min.css")
-          .Include("~/Content/bootstrap-responsive.min.css")
+          .Include("~/Content/bootstrap/bootstrap.min.css")
+          .Include("~/Content/bootstrap/bootstrap-glyphicons.css")
           .Include("~/Content/font-awesome.min.css")
 		  .Include("~/Content/durandal.css")
-          .Include("~/Content/app.css")
+          .Include("~/Content/starterkit.css")
         );
     }
 

@@ -1,5 +1,5 @@
-﻿define(['durandal/http'], function (http) {
-    var areas = function () {
+﻿define(['plugins/http'], function (http) {
+    var result = function () {
         var self = this;
         
         this.displayName = 'Goals';
@@ -13,5 +13,5 @@
         };
     };
 
-    return areas;
+    return new result();
 });

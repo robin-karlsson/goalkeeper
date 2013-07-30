@@ -1,4 +1,4 @@
-﻿define(['durandal/http'], function (http) {
+﻿define(['plugins/http'], function (http) {
     var sampleData = function () {
         var self = this;
 
