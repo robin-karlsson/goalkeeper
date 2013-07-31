@@ -34,7 +34,8 @@ namespace Goalkeeper.Controllers
                     ActivityState = ActivityState.NotStarted,
                     GoalId = goal.Id,
                     PerformerId = performer.Id,
-                    Title = string.Format("Evaluate {0} process",value)
+                    Title = string.Format("Evaluate {0} process",value),
+                    Abstract = "A short summary of this activity"
                 };
             await Session.StoreAsync(newActivity);
 
@@ -43,7 +44,8 @@ namespace Goalkeeper.Controllers
                 ActivityState = ActivityState.InProgress,
                 GoalId = goal.Id,
                 PerformerId = performer.Id,
-                Title = string.Format("Improve {0} process", value)
+                Title = string.Format("Improve {0} process", value),
+                Abstract = "A short summary of this activity"
             };
             await Session.StoreAsync(inProgressActivity);
 
@@ -52,7 +54,8 @@ namespace Goalkeeper.Controllers
                 ActivityState = ActivityState.Completed,
                 GoalId = goal.Id,
                 PerformerId = performer.Id,
-                Title = string.Format("Document {0} process", value)
+                Title = string.Format("Document {0} process", value),
+                Abstract = "A short summary of this activity"
             };
             await Session.StoreAsync(completedActivity);
 

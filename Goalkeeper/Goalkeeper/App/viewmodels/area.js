@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'plugins/http', 'knockout'], function (router, http, ko) {
+﻿define(['plugins/router', 'plugins/http', 'durandal/app', 'knockout'], function (router, http, app, ko) {
     var areas = function () {
         var self = this;
         
@@ -10,6 +10,7 @@
             return http.get('api/areas/' + areaId + '/goals/' + router.daterange.Id.replace('/','-')).success(function (data) {
                 self.goals(data.goals);
                 self.displayName(data.area.Name);
+                app.title = data.area.Name;
             });
         };
     };

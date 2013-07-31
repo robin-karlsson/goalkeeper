@@ -4,12 +4,12 @@
         activate: function () {
             router.map([
                 { route: '', title:'Areas', moduleId: 'viewmodels/areas', nav: true },
-                { route: 'goal/*goalId', moduleId: 'viewmodels/goal', nav: false },
+                { route: 'goal/*goalId', title: 'Goal', moduleId: 'viewmodels/goal', nav: false },
                 { route: 'goals', title:'Goals', moduleId: 'viewmodels/goals', nav: true },
-                { route: 'area/*areaId', moduleId: 'viewmodels/area', nav: false },
-                { route: 'areas', moduleId: 'viewmodels/areas', nav: false },
-                { route: 'activity/*activityId', moduleId: 'viewmodels/activity', nav: false },
-                { route: 'sampledata', moduleId: 'viewmodels/sampledata', nav: false }
+                { route: 'area/*areaId', title:'Area', moduleId: 'viewmodels/area', nav: false },
+                { route: 'areas', title: 'Areas', moduleId: 'viewmodels/areas', nav: false },
+                { route: 'activity/*activityId', title: 'Activity', moduleId: 'viewmodels/activity', nav: false },
+                { route: 'sampledata', title: 'Sample data', moduleId: 'viewmodels/sampledata', nav: false }
             ]).buildNavigationModel();
 
             return http.get('api/dateranges/current-latest').success(function(data) {
