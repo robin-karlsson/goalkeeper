@@ -9,6 +9,7 @@
                 { route: 'area/*areaId', title:'Area', moduleId: 'viewmodels/area', nav: false },
                 { route: 'areas', title: 'Areas', moduleId: 'viewmodels/areas', nav: false },
                 { route: 'activity/*activityId', title: 'Activity', moduleId: 'viewmodels/activity', nav: false },
+                { route: 'daterange', title: 'Date ranges', moduleId: 'viewmodels/daterange', nav: false },
                 { route: 'sampledata', title: 'Sample data', moduleId: 'viewmodels/sampledata', nav: false }
             ]).buildNavigationModel();
 
@@ -19,7 +20,6 @@
                     router.daterange = { Name: 'No date range found', Id: undefined };
                 }
                 router.activate();
-            //}).then(function() {
             });
         }
     };

@@ -1,0 +1,8 @@
+﻿<section>
+    <h2 data-bind="html:displayName"></h2>
+    <blockquote>Manage the date ranges</blockquote>
+    <h3>Existing ranges</h3>
+    <ul data-bind="foreach: ranges">
+        <li><a data-bind="attr: {'href': '#daterange/'+Id.replace('/','-')}, text: Name + ' (' + StartDate + ' - ' + EndDate + ')'"></a></li>
+    </ul>
+</section>

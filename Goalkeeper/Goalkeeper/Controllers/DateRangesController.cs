@@ -13,6 +13,7 @@ namespace Goalkeeper.Controllers
 {
     public class DateRangesController : RavenDbController
     {
+        [HttpGet("api/dateranges")]
         public async Task<IEnumerable<DateRange>> Get()
         {
             return await Session.Query<DateRange>()

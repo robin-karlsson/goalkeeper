@@ -191,6 +191,7 @@
     <Content Include="App\main.js" />
     <Content Include="App\viewmodels\area.js" />
     <Content Include="App\viewmodels\activity.js" />
+    <Content Include="App\viewmodels\daterange.js" />
     <Content Include="App\viewmodels\goal.js" />
     <Content Include="App\viewmodels\goals.js" />
     <Content Include="App\viewmodels\sampledata.js" />
@@ -198,7 +199,7 @@
     <Content Include="App\viewmodels\areas.js" />
     <Content Include="App\views\area.html" />
     <Content Include="App\views\activity.html" />
-    <Content Include="App\views\detail.html" />
+    <Content Include="App\views\daterange.html" />
     <Content Include="App\views\goal.html" />
     <Content Include="App\views\goals.html" />
     <Content Include="App\views\sampledata.html" />
