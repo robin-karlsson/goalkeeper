@@ -1,7 +1,7 @@
 ﻿define(['plugins/router', 'plugins/http'], function (router, http) {
-    var areas = function () {
+    var areas = function() {
         var self = this;
-        
+
         this.displayName = ko.observable('Goal');
         this.description = 'Loading goal description...';
         this.activities = ko.observableArray();
@@ -9,7 +9,7 @@
         this.findActivitiesInState = function(stateToFind) {
             var a = self.activities();
             var result = new Array();
-            ko.utils.arrayForEach(a, function (activity) {
+            ko.utils.arrayForEach(a, function(activity) {
                 if (activity.ActivityState === stateToFind) {
                     result.push(activity);
                 }
@@ -17,22 +17,37 @@
             return result;
         };
 
+        this.goalId = ko.observable();
+        this.voteCount = ko.observable(0);
+        this.voteEnabled = ko.observable(true);
+        this.voteText = ko.observable('Vote now!');
+
         this.completedActivities = ko.computed(function() {
             return self.findActivitiesInState(2);
         });
 
-        this.inProgressActivities = ko.computed(function () {
+        this.inProgressActivities = ko.computed(function() {
             return self.findActivitiesInState(1);
         });
 
-        this.notStartedActivities = ko.computed(function () {
+        this.notStartedActivities = ko.computed(function() {
             return self.findActivitiesInState(0);
         });
 
+        this.voteUp = function () {
+            var currentVoteCount = self.voteCount() || 0;
+            self.voteCount(currentVoteCount + 1);
+            self.voteText('Thank you for voting!');
+            self.voteEnabled(false);
+            http.put('api/goals/' + self.goalId() + '/vote');
+        };
+
         this.activate = function(goalId) {
-            return http.get('api/goals/' + goalId + '/activities').success(function (data) {
+            self.goalId(goalId);
+            return http.get('api/goals/' + goalId + '/activities').success(function(data) {
                 self.activities(data.activities);
                 self.displayName(data.goal.Name);
+                self.voteCount(data.goal.VoteCount);
             });
         };
     };

@@ -1,6 +1,7 @@
 ﻿<section>
     <h2 data-bind="html:displayName"></h2>
     <blockquote data-bind="html:description"></blockquote>
+    <div>Current vote count: <span data-bind="text: voteCount"></span>. <button data-bind="click: voteUp, enable: voteEnabled, text: voteText" class="btn btn-primary"></button></div>
     <h3>Activities to reach the goal</h3>
     <div class="panel panel-success">
         <div class="panel-heading">

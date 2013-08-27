@@ -38,6 +38,15 @@ namespace Goalkeeper.Controllers
             return new { area, goals };
         }
 
+        [HttpPut("api/goals/{goalId}/vote")]
+        public async Task<HttpResponseMessage> Vote(string goalId)
+        {
+            var goal = await Session.LoadAsync<Goal>(goalId.Replace('-', '/'));
+            goal.VoteCount++;
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
         public async Task<IEnumerable<Goal>> Get()
         {
             return await Session.Query<Goal>().ToListAsync();

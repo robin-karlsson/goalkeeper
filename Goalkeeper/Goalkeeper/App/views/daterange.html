@@ -3,6 +3,15 @@
     <blockquote>Manage the date ranges</blockquote>
     <h3>Existing ranges</h3>
     <ul data-bind="foreach: ranges">
-        <li><a data-bind="attr: {'href': '#daterange/'+Id.replace('/','-')}, text: Name + ' (' + StartDate + ' - ' + EndDate + ')'"></a></li>
+        <li><a data-bind="attr: {'href': '#daterange/'+Id.replace('/','-')}, text: Name + ' (' + StartDate + ' - ' + EndDate + ')'"></a> <button data-bind="click: $parent.remove" class="btn btn-danger btn-xs">Delete</button></li>
     </ul>
+    <form data-bind="submit: create">
+        <fieldset>
+            <legend>Add new date range</legend>
+            <input type="text" placeholder="Name" data-bind="value: newRange.Name" />
+            <input type="text" placeholder="Start date" data-bind="value: newRange.StartDate" />
+            <input type="text" placeholder="End date" data-bind="value: newRange.EndDate" />
+            <button type="submit" class="btn btn-default">Create</button>
+        </fieldset>
+    </form>
 </section>

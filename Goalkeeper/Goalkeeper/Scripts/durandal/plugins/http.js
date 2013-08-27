@@ -70,7 +70,7 @@ define(['jquery', 'knockout'], function($, ko) {
                 url: url,
                 data: ko.toJSON(data),
                 type: 'POST',
-                contentType: 'application/json',
+                contentType: 'application/json; charset=utf-8',
                 dataType: 'json'
             });
         },
@@ -79,7 +79,16 @@ define(['jquery', 'knockout'], function($, ko) {
                 url: url,
                 data: ko.toJSON(data),
                 type: 'DELETE',
-                contentType: 'application/json',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            });
+        },
+        put: function (url, data) {
+            return $.ajax({
+                url: url,
+                data: ko.toJSON(data),
+                type: 'PUT',
+                contentType: 'application/json; charset=utf-8',
                 dataType: 'json'
             });
         }

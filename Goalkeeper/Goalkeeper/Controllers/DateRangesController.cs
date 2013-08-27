@@ -36,6 +36,11 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Post([FromBody]DateRange value)
         {
+            if (!ModelState.IsValid)
+            {
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));
+            }
+
             await Session.StoreAsync(value);
 
             return new HttpResponseMessage(HttpStatusCode.Created);
