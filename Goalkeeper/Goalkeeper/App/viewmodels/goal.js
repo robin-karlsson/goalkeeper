@@ -34,6 +34,18 @@
             return self.findActivitiesInState(0);
         });
 
+        this.suggestion = ko.observable();
+        
+        this.suggestionEnabled = ko.computed(function() {
+            return (self.suggestion() || '') != '';
+        });
+
+        this.sendSuggestion = function() {
+            http.post('api/activitysuggestions', { description: self.suggestion(), goalId: self.goalId(), suggestionState: 'Open' }).complete(function () {
+                self.suggestion('');
+            });
+        };
+
         this.voteUp = function () {
             var currentVoteCount = self.voteCount() || 0;
             self.voteCount(currentVoteCount + 1);

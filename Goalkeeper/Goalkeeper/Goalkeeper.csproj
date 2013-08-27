@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\ActivitySuggestionsController.cs" />
     <Compile Include="Controllers\AreasController.cs" />
     <Compile Include="Controllers\DateRangesController.cs" />
     <Compile Include="Controllers\DurandalController.cs" />
@@ -175,7 +176,9 @@
     <Compile Include="Controllers\PerformerController.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ActivityState.cs" />
+    <Compile Include="Models\ActivitySuggestionState.cs" />
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\ActivitySuggestion.cs" />
     <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Controllers\HomeController.cs" />

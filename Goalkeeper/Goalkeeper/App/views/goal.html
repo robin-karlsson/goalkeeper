@@ -1,7 +1,12 @@
 ﻿<section>
-    <h2 data-bind="html:displayName"></h2>
+    <div><h2><span data-bind="html: displayName"></span><span data-bind="    text: voteCount" class="label label-info"></span> <span><button data-bind="    click: voteUp, enable: voteEnabled"><i class="icon-thumbs-up"></i></button></span></h2></div>
     <blockquote data-bind="html:description"></blockquote>
-    <div>Current vote count: <span data-bind="text: voteCount"></span>. <button data-bind="click: voteUp, enable: voteEnabled, text: voteText" class="btn btn-primary"></button></div>
+    <div>
+        <form>
+            <div class="form-group"><textarea data-bind="value: suggestion, valueUpdate: 'afterkeydown'" placeholder="Suggest a new activity for this goal" cols="80" rows="4"></textarea></div>
+            <div class="form-group"><button class="btn btn-primary" data-bind="click: sendSuggestion, enable: suggestionEnabled">Suggest!</button></div>
+        </form>
+    </div>
     <h3>Activities to reach the goal</h3>
     <div class="panel panel-success">
         <div class="panel-heading">
