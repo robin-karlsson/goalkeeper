@@ -50,9 +50,13 @@ namespace Goalkeeper.Controllers
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
-        public void Delete(string id)
+        public async void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
+            var activitySuggestionId = id.Replace('-', '/');
+            var activitySuggestion = await Session.LoadAsync<ActivitySuggestion>(activitySuggestionId);
+
+            activitySuggestion.SuggestionState = ActivitySuggestionState.Rejected;
+            await Session.StoreAsync(activitySuggestion, activitySuggestionId);
         }
     }
 }

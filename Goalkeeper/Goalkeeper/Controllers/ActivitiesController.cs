@@ -59,9 +59,14 @@ namespace Goalkeeper.Controllers
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
 
-        public void Delete(string id)
+        public async void Delete(string id)
         {
-            Session.Advanced.Defer(new DeleteCommandData { Key = id.Replace('-', '/') });
+            var activityId = id.Replace('-', '/');
+            var activity = await Session.LoadAsync<Activity>(activityId);
+
+            activity.ActivityState = ActivityState.Deleted;
+            
+            await Session.StoreAsync(activity, activityId);
         }
     }
 }
