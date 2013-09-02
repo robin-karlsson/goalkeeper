@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Goalkeeper.Models;
-using Raven.Abstractions.Commands;
 using Raven.Client;
 using Raven.Client.Linq;
 
@@ -19,7 +18,7 @@ namespace Goalkeeper.Controllers
             var goal = await Session.LoadAsync<Goal>(goalId);
 
             var activitySuggestions = await Session.Query<ActivitySuggestion>()
-                                                   .Where(x => x.GoalId == goalId && x.SuggestionState == ActivitySuggestionState.Open)
+                                                   .Where(x => x.GoalId == goalId.Replace('/','-') && x.SuggestionState == ActivitySuggestionState.Open)
                                                    .ToListAsync();
 
             return new { goal, activitySuggestions };
@@ -38,6 +37,7 @@ namespace Goalkeeper.Controllers
 
         public async Task<HttpResponseMessage> Post([FromBody]ActivitySuggestion value)
         {
+            value.SuggestionState = ActivitySuggestionState.Open;
             await Session.StoreAsync(value);
 
             return new HttpResponseMessage(HttpStatusCode.Created);

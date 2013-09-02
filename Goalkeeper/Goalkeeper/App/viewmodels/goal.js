@@ -34,6 +34,7 @@
             return self.findActivitiesInState(0);
         });
 
+        this.suggestions = ko.observableArray();
         this.suggestion = ko.observable();
         
         this.suggestionEnabled = ko.computed(function() {
@@ -41,8 +42,9 @@
         });
 
         this.sendSuggestion = function() {
-            http.post('api/activitysuggestions', { description: self.suggestion(), goalId: self.goalId(), suggestionState: 'Open' }).complete(function () {
+            http.post('api/activitysuggestions', { description: self.suggestion(), goalId: self.goalId(), suggestionState: 'Open' }).complete(function (data) {
                 self.suggestion('');
+                self.suggestions.push(data);
             });
         };
 
@@ -60,6 +62,9 @@
                 self.activities(data.activities);
                 self.displayName(data.goal.Name);
                 self.voteCount(data.goal.VoteCount);
+                http.get('api/goals/' + goalId + '/open-suggestions').success(function (suggestionsData) {
+                    self.suggestions(suggestionsData.activitySuggestions);
+                });
             });
         };
     };

@@ -1,5 +1,5 @@
 ﻿<section>
-    <div><h2><span data-bind="html: displayName"></span><span data-bind="    text: voteCount" class="label label-info"></span> <span><button data-bind="    click: voteUp, enable: voteEnabled"><i class="icon-thumbs-up"></i></button></span></h2></div>
+    <div><h2><span data-bind="html: displayName"></span><span data-bind="text: voteCount" class="label label-info"></span> <span><button data-bind="click: voteUp, enable: voteEnabled"><i class="icon-thumbs-up"></i></button></span></h2></div>
     <blockquote data-bind="html:description"></blockquote>
     <div>
         <form>
@@ -8,6 +8,14 @@
         </form>
     </div>
     <h3>Activities to reach the goal</h3>
+    <div class="panel panel-primary" data-bind="visible: suggestions().length > 0">
+        <div class="panel-heading">
+            <h4>Suggestions waiting for admittance</h4>
+        </div>
+        <ul class="list-group list-group-flush" data-bind="foreach: suggestions">
+            <li><button class="btn btn-primary btn-xs">Approve</button>&nbsp;<button class="btn btn-xs">Reject</button>&nbsp;<span data-bind="text: Description"></span></li>
+        </ul>
+    </div>
     <div class="panel panel-success">
         <div class="panel-heading">
             <h4><span data-bind="text: completedActivities().length > 0 ? completedActivities().length + ' ' : ''"></span>Completed activities</h4>
