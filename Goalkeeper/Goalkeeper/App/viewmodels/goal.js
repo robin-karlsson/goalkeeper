@@ -6,8 +6,7 @@
         this.description = 'Loading goal description...';
         this.activities = ko.observableArray();
 
-        this.findActivitiesInState = function(stateToFind) {
-            var a = self.activities();
+        this.findActivitiesInState = function(stateToFind, a) {
             var result = new Array();
             ko.utils.arrayForEach(a, function(activity) {
                 if (activity.ActivityState === stateToFind) {
@@ -23,15 +22,15 @@
         this.voteText = ko.observable('Vote now!');
 
         this.completedActivities = ko.computed(function() {
-            return self.findActivitiesInState(2);
+            return self.findActivitiesInState(2, self.activities());
         });
 
         this.inProgressActivities = ko.computed(function() {
-            return self.findActivitiesInState(1);
+            return self.findActivitiesInState(1, self.activities());
         });
 
         this.notStartedActivities = ko.computed(function() {
-            return self.findActivitiesInState(0);
+            return self.findActivitiesInState(0, self.activities());
         });
 
         this.suggestions = ko.observableArray();
@@ -44,7 +43,21 @@
         this.sendSuggestion = function() {
             http.post('api/activitysuggestions', { description: self.suggestion(), goalId: self.goalId(), suggestionState: 'Open' }).complete(function (data) {
                 self.suggestion('');
-                self.suggestions.push(data);
+                self.suggestions.push(data.responseJSON);
+            });
+        };
+
+        this.approveSuggestion = function(suggestionToApprove) {
+            http.put('api/activitysuggestions/approve/' + suggestionToApprove.Id.replace('/', '-')).complete(function (data) {
+                self.activities.push(data.responseJSON);
+                self.suggestions.remove(suggestionToApprove);
+            });
+        };
+
+        this.rejectSuggestion = function (suggestionToReject) {
+            http.delete('api/activitysuggestions/' + suggestionToReject.Id.replace('/','-')).complete(function (data) {
+                self.suggestion('');
+                self.suggestions.remove(suggestionToReject);
             });
         };
 

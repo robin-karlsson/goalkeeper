@@ -12,8 +12,8 @@
         <div class="panel-heading">
             <h4>Suggestions waiting for admittance</h4>
         </div>
-        <ul class="list-group list-group-flush" data-bind="foreach: suggestions">
-            <li><button class="btn btn-primary btn-xs">Approve</button>&nbsp;<button class="btn btn-xs">Reject</button>&nbsp;<span data-bind="text: Description"></span></li>
+        <ul class="list-group list-unstyled list-group-flush" data-bind="foreach: suggestions">
+            <li><button class="btn btn-primary btn-xs" data-bind="click: $parent.approveSuggestion">Approve</button>&nbsp;<button class="btn btn-danger btn-xs" data-bind="click: $parent.rejectSuggestion">Reject</button>&nbsp;<span data-bind="text: Description"></span></li>
         </ul>
     </div>
     <div class="panel panel-success">
@@ -30,7 +30,7 @@
         </div>
         <div class="list-group list-group-flush" data-bind="foreach: inProgressActivities">
             <a class="list-group-item" data-bind="attr: { 'href': '#activity/' + Id.replace('/', '-') }, text: Title"></a>
-        </div>
+        </div>8
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -40,23 +41,51 @@ namespace Goalkeeper.Controllers
             value.SuggestionState = ActivitySuggestionState.Open;
             await Session.StoreAsync(value);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            var response = Request.CreateResponse(HttpStatusCode.Created, value);
+
+            response.Headers.Location = new Uri(Url.Link("DefaultApi", new {id = value.Id}));
+            return response;
+        }
+
+        [HttpPut("api/activitysuggestions/approve/{suggestionId}")]
+        public async Task<HttpResponseMessage> Approve(string suggestionId)
+        {
+            var suggestion = await Session.LoadAsync<ActivitySuggestion>(suggestionId.Replace('-', '/'));
+            suggestion.SuggestionState = ActivitySuggestionState.Approved;
+
+            var activity = new Activity
+                {
+                    ActivityState = ActivityState.NotStarted,
+                    Description = suggestion.Description,
+                    GoalId = suggestion.GoalId.Replace('-', '/'),
+                    Title = suggestion.Description.Substring(0, Math.Min(suggestion.Description.Length,50))
+                };
+            await Session.StoreAsync(activity);
+
+            var response = Request.CreateResponse(HttpStatusCode.Created, activity);
+
+            response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = activity.Id }));
+            return response;
         }
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]ActivitySuggestion value)
         {
             await Session.StoreAsync(value, id.Replace('-', '/'));
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            var response = Request.CreateResponse(HttpStatusCode.Created, value);
+
+            response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = value.Id }));
+            return response;
         }
 
-        public async void Delete(string id)
+        public async Task<HttpResponseMessage> Delete(string id)
         {
             var activitySuggestionId = id.Replace('-', '/');
             var activitySuggestion = await Session.LoadAsync<ActivitySuggestion>(activitySuggestionId);
 
             activitySuggestion.SuggestionState = ActivitySuggestionState.Rejected;
-            await Session.StoreAsync(activitySuggestion, activitySuggestionId);
+
+            return new HttpResponseMessage(HttpStatusCode.Gone);
         }
     }
 }
