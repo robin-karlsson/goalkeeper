@@ -1,5 +1,8 @@
 ﻿<section>
     <h2 data-bind="html:displayName"></h2>
     <blockquote data-bind="html:description"></blockquote>
-    
+    <p data-bind="ifnot: setPerformerMode"><span data-bind="text: performer.Name"></span>&nbsp;<a href="#" class="btn btn-default btn-sm" data-bind="click: startAssignPerformer">Change</a></p>
+    <p data-bind="if: setPerformerMode"><select data-bind="value: newPerformer, options: performers, optionsText: 'Name'"></select>&nbsp;
+        <a href="#" class="btn btn-warning btn-sm" data-bind="click: cancelAssignPerformer">Cancel</a>&nbsp;
+        <a href="#" class="btn btn-default btn-sm" data-bind="click: assignPerformer">OK</a></p>
 </section>

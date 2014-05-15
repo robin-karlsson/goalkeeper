@@ -9,7 +9,7 @@ namespace Goalkeeper.Models
 
         public string Id { get; set; }
         public string Description { get; set; }
-        public string GoalId { get; set; }
+        public NameId Goal { get; set; }
         public ActivitySuggestionState SuggestionState { get; set; }
     }
 }

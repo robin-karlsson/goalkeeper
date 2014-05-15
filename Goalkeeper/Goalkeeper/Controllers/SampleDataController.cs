@@ -23,17 +23,24 @@ namespace Goalkeeper.Controllers
                 };
             await Session.StoreAsync(period);
 
-            var goal = new Goal {AreaId = area.Id, DateRangeId = period.Id, Name = string.Format("Make {0} significantly better!", value)};
+            var areaId = new NameId {Id = area.Id, Name = area.Name};
+            var periodId = new NameId {Id = period.Id, Name = period.Name};
+
+            var goal = new Goal {Area = areaId, DateRange = periodId, Name = string.Format("Make {0} significantly better!", value)};
             await Session.StoreAsync(goal);
+
+            var goalId = new NameId {Id = goal.Id, Name = goal.Name};
 
             var performer = new Performer {Name = string.Format("{0} Worker", value)};
             await Session.StoreAsync(performer);
 
+            var performerId = new NameId {Id = performer.Id, Name = performer.Name};
+
             var newActivity = new Activity
                 {
                     ActivityState = ActivityState.NotStarted,
-                    GoalId = goal.Id,
-                    PerformerId = performer.Id,
+                    Goal = goalId,
+                    Performer = performerId,
                     Title = string.Format("Evaluate {0} process",value),
                     Abstract = "A short summary of this activity"
                 };
@@ -42,8 +49,8 @@ namespace Goalkeeper.Controllers
             var inProgressActivity = new Activity
             {
                 ActivityState = ActivityState.InProgress,
-                GoalId = goal.Id,
-                PerformerId = performer.Id,
+                Goal = goalId,
+                Performer = performerId,
                 Title = string.Format("Improve {0} process", value),
                 Abstract = "A short summary of this activity"
             };
@@ -52,8 +59,8 @@ namespace Goalkeeper.Controllers
             var completedActivity = new Activity
             {
                 ActivityState = ActivityState.Completed,
-                GoalId = goal.Id,
-                PerformerId = performer.Id,
+                Goal = goalId,
+                Performer = performerId,
                 Title = string.Format("Document {0} process", value),
                 Abstract = "A short summary of this activity"
             };

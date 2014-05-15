@@ -19,7 +19,7 @@ namespace Goalkeeper.Controllers
             var goal = await Session.LoadAsync<Goal>(goalId);
 
             var activitySuggestions = await Session.Query<ActivitySuggestion>()
-                                                   .Where(x => x.GoalId == goalId.Replace('/','-') && x.SuggestionState == ActivitySuggestionState.Open)
+                                                   .Where(x => x.Goal.Id == goalId.Replace('/','-') && x.SuggestionState == ActivitySuggestionState.Open)
                                                    .ToListAsync();
 
             return new { goal, activitySuggestions };
@@ -57,12 +57,12 @@ namespace Goalkeeper.Controllers
                 {
                     ActivityState = ActivityState.NotStarted,
                     Description = suggestion.Description,
-                    GoalId = suggestion.GoalId.Replace('-', '/'),
+                    Goal = suggestion.Goal,
                     Title = suggestion.Description.Substring(0, Math.Min(suggestion.Description.Length,50))
                 };
             await Session.StoreAsync(activity);
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, activity);
+            var response = Request.CreateResponse(HttpStatusCode.OK, activity);
 
             response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = activity.Id }));
             return response;
@@ -72,7 +72,7 @@ namespace Goalkeeper.Controllers
         {
             await Session.StoreAsync(value, id.Replace('-', '/'));
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, value);
+            var response = Request.CreateResponse(HttpStatusCode.OK, value);
 
             response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = value.Id }));
             return response;
@@ -85,7 +85,7 @@ namespace Goalkeeper.Controllers
 
             activitySuggestion.SuggestionState = ActivitySuggestionState.Rejected;
 
-            return new HttpResponseMessage(HttpStatusCode.Gone);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,14 +27,17 @@ namespace Goalkeeper.Controllers
         {
             await Session.StoreAsync(value);
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            var response = Request.CreateResponse(HttpStatusCode.Created, value);
+
+            response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = value.Id }));
+            return response;
         }
 
         public async Task<HttpResponseMessage> Put(string id, [FromBody]Performer value)
         {
             await Session.StoreAsync(value, id.Replace('-', '/'));
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         public void Delete(string id)
